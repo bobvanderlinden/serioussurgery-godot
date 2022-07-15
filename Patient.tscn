@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Patient.gd" type="Script" id=1]
+[ext_resource path="res://patient.png" type="Texture" id=2]
+[ext_resource path="res://jump/BodyPhysicsMaterial.tres" type="PhysicsMaterial" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 6.0
+
+[sub_resource type="AudioStreamSample" id=4]
+
+[node name="Patient" type="RigidBody2D" groups=["Patient"]]
+position = Vector2( 157, 104 )
+physics_material_override = ExtResource( 3 )
+contacts_reported = 1
+contact_monitor = true
+angular_damp = 10.0
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.026, 0.026 )
+texture = ExtResource( 2 )
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource( 4 )
+
+[node name="HeartContainer" type="Node2D" parent="."]
+position = Vector2( 0.3, 1.3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Patient_body_entered"]
